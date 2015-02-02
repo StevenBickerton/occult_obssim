@@ -34,7 +34,7 @@ Ebmv=0.255 #sung 1999
 Av=0.79    # 3.1 * Ebmv
 
 # scope params
-HZ=40
+HZ=20
 THRU=0.7 # QE=0.85, other=0.85
 RDNOISE=5 
 LAMLO=4.0e-7
@@ -62,7 +62,7 @@ do
     PREFIX=""
     for APER in $APERTURES
     do
-	./evalTarget.pl $DIST $Av $Ebmv $LAMLO $LAMHI $APER $THRU $RDNOISE $HZ $RAWPHOT $RAcol:$Deccol:$Vcol:$BmVcol $FOV $IOCOpowerform $Nrun $PREFIX
+        ./evalTarget.pl $DIST $Av $Ebmv $LAMLO $LAMHI $APER $THRU $RDNOISE $HZ $RAWPHOT $RAcol:$Deccol:$Vcol:$BmVcol $FOV $IOCOpowerform $Nrun $PREFIX
     done
 done
 
