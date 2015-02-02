@@ -1,5 +1,133 @@
 
 Dependencies
+---------------
 
 occultTools
 cAnanlysis
+
+Install:
+----------------
+
+Add the perl modules to PERL5LIB variable.  In the occultation sim directory (i.e. this directory):
+
+$ export PERL5LIB=$PWD/libperl
+
+
+Running:
+-----------------
+
+== choosing the star catalog ==
+
+The catalog of stars is in the file (by default, a test file with only 2 stars!):
+
+star_catalog.dat
+
+The stars for M35 are in the file (just copy this file to 'star_catalog.dat' to run with M35):
+
+sung1999_MNRAS.306.361.dat (~ 1000 stars)
+
+
+== Running ==
+
+This should just work:
+(with default, it only runs 2 stars and takes about 1 minute ... do this as a test!)
+
+$ ./run.sh
+
+Most parameters you might want to tweak are in this short bash script
+'run.sh'.  For example, you very likely want to choose the aperture
+diameter of your telescope, or set the distance to your target
+cluster.  Such settings are in this file.
+
+By default, evalTarget.pl has hard-coded distances to the TNOs (40 AU
+and 300 AU).  This determines which diffraction shadows will be
+planted/detected.  To change this, you have to edit the script
+directly (sorry), but the settings are near the top of the script.
+
+
+Results:
+--------------------
+
+== The rate_* files ==
+
+Final results will be written to files named for each set of parameters you ran:
+
+rate_DDDD_A.AAA       ******* THIS IS THE OUTPUT FILE WITH THE FINAL RESULTS IN IT *********
+
+DDDD  = distance assumed to TNOs (set in evalTarget.pl)
+A.AAA = aperture of primary mirror
+
+Using the default parameters should produce the following:
+
+$ cat rate_0040_0.950
+#Aper       rate   n*  Vlim   AU        n/s       n/yr      --
+0.950  6.217e-09    2 14.50   40  1.609e+08      0.196      -1
+
+Aper   = Telescope aperture
+rate   = number of occultations per second
+n*     = number of stars used
+Vlim   = faintest magnitude for which the expectation rate > 0
+AU     = distance to TNO
+n/s    = expect wait time between occultations in seconds
+n/yr   = number of occultations per year
+
+
+== The starRates_* files ==
+
+Results for each star in your cluster (i.e. from star_catalog.dat) are in a files called:
+
+starRates_DDDD_A.AAA
+
+DDDD  = distance assumed to TNOs (set in evalTarget.pl)
+A.AAA = aperture of primary mirror (set in run.sh)
+
+Using the default parameters should produce the following:
+
+$ cat starRates_0040_0.950
+#MK  Teff  Code     RMS R*_Fsu  aper      rate1   Nmk      rateN rateN/y    AU   bmax   rmin      n_m2      nSas   vRet  fsu      --
+A8V  7580  2.80  0.0168    0.2 0.950   4.07e-09     1   4.07e-09  0.1284    40 2529.7  421.7         0    0.0239  25076 642      -1
+F2V  6890  3.20  0.0276    0.1 0.950  2.147e-09     1  2.147e-09  0.0678    40 1614.1  493.3         0    0.0175  25076 642      -1
+
+
+MK      = Star's MK type
+Teff    = Star's Effective temp.
+Code    = A numerical version of MK type (used only internally)
+RMS     = RMS noise level in the lightcurve produce by this star type
+R*_Fsu  = Projected radius of the star in Fresnel Scale units (FSU).
+aper    = telescope aperture
+rate1   = The expectation rate for detections with 1 (one) star of this type.
+Nmk     = The number of stars of this type in the catalog
+rateN   = The expectation rate for all stars of this type (rate1*Nmk) in number/second
+rateN/y = rateN expressed in number/year
+AU      = assumed distance to TNO
+bmax    = the largest occultation impact parameter which is detectable at rmin
+rmin    = the smallest radius TNO which is detectable
+n_m2    = density of TNOs with radius >= rmin, units number/m^2
+nSas    = density of TNOs with radius >= rmin, units number/arcsec^2
+vRet    = retrograde velocity for occultation with the specified observing parameter (set in run.sh)
+fsu     = Fresnel scale unit for this lambda,distance [metres].
+
+This rates in rate_0040_0.950 are a summary (a sum!) of the rates for all stars in this file.
+
+
+== In the MK star directories (e.g. A8V/) ==
+
+The results of repeatedly adding/detecting occultation patterns to lightcurves are stored in files:
+
+tsA.AAA.DDDD.fits.stats
+
+For the default, this is ts0.950.0040.fits.stats.  So, for this star
+type (e.g. A8V star), with a 0.95m aperture, the detectability of TNO
+at 40 AU is stored.  It's plain text, and just lists the number
+added/detected in the timeseries at different impact parameters.  The
+best way to comprehend detectability for a given star is to view this
+file with the rip_snr script (with the occultTools).
+
+$ rip_snr A8V/ts0.950.0040.fits.stat 10
+
+<pops open a window showing a plot>
+
+SNR colored    Impact_parameter   vs.   TNO_Radius
+--> very informative.  Shows 'sigma' of a detection for range
+    of TNO sizes and occultation impact parameters
+
