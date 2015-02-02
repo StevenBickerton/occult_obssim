@@ -25,8 +25,6 @@ my $usage = "Usage: $exe dist lamlo lamhi AU Nrun(0 for all)\n";
 my ($dist, $lamlo, $lamhi, $AU, $Nrun) = @ARGV;
 die $usage unless $AU;
 
-sub log10($) { return log($_[0])/log(10.0); }
-
 
 my @rads;
 
@@ -38,9 +36,19 @@ if ( abs($AU-40.0) < 1 ) {
   unshift @rads, (20, 40, 60, 80, 120, 160);
 }
 
+my %starsUsed;
+my $starDbFile = "starDB.dat";
+open(STARDB, "$starDbFile");
+while (<STARDB>) {
+    my @fields = split;
+    $starsUsed{$fields[0]} = 1;
+}
+close(STARDB);
+
+
 $Nrun = map {$_=~/V/} (keys %star) if $Nrun ==0;
 my $i = 0;
-foreach my $mk (sort keys %star) {
+foreach my $mk (sort keys %starsUsed) {
 
   next unless $mk =~ /^[OBAFGKM][0-9]V$/;
 

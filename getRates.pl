@@ -42,8 +42,6 @@ if ($prefix) {
 die "OCOpowerform must be 0 (broken) or 1 (uniform)\n" 
   unless $OCOpowerform=~/^[01]$/;
 
-sub log10($) {return log($_[0])/log(10.0); }
-
 
 my ($elong, $incl) = (180.0, 0.0);
 my ($q, $q_doh, $rknee) = (4.6, 3.0, 25000.0);

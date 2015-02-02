@@ -23,8 +23,6 @@ my $exe = basename($0);
 my $usage = "Usage: $exe infile dist(pc) Av Ebmv RA:Dec:V:BmV-columns FOV\n";
 
 
-sub log10($) {return log($_[0])/log(10.0);}
-
 my ($infile, $dist, $Av, $Ebmv, $columns, $FOV) = @ARGV;
 die $usage unless $FOV;
 

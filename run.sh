@@ -22,7 +22,7 @@ set -x
 
 
 # target data
-RAWPHOT=sung1999_MNRAS.306.361.dat
+RAWPHOT=star_catalog.dat
 Vcol=11
 BmVcol=13
 RAcol=18   #degrees

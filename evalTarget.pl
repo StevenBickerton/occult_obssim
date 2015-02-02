@@ -19,7 +19,7 @@ my $exe = basename($0);
 my $usage = 
   "Usage: $exe dist Av Ebmv lamlo lamhi aper QE rdnoise Hz photfile RA:dec:V:BmVcol FOV IOCOpowerform Nrun prefix\n";
 
-#   1      2   3     4      5      6   7   8    9        0     1
+#   1      2   3     4      5      6   7   8       9        0     1
 my ($dist,$Av,$Ebmv,$lamlo,$lamhi,$ap,$QE,$rdnoise,$hz,$photfile,$columns,$FOV,$IOCOpowerform, $Nrun, $prefix) = @ARGV;
 die $usage unless $FOV;
 $Nrun = 0 unless $Nrun;
@@ -27,7 +27,7 @@ $IOCOpowerform = 0 unless $IOCOpowerform;
 $prefix = "" unless $prefix;
 
 my @AUs = (40,300);
-#@AUs = (40);
+@AUs = (40);
 # @AUs = (300);
 
 my $cmd_makeStarDB = "./makeStarDB.pl $photfile $dist $Av $Ebmv $columns $FOV";

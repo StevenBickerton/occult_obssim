@@ -45,8 +45,6 @@ my $ts_duration = 1.0*20.0*($nCyc*$cyc)*$event_duration;  # use a 5% fill factor
 #my @apertures = map {0.01*(10 + 1.0*$_)} (1 .. 20);
 #@apertures = (0.10, 0.15, 0.20, 0.30);
 
-sub log10($) { return log($_[0])/log(10.0); }
-
 my @mktypes = ();
 foreach my $mk ( glob("[OBAFGKM][0-9]V") ) {
   push @mktypes, [$mk, $star{$mk}{Teff}];
