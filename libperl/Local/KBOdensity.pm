@@ -81,12 +81,12 @@ sub KBOdensity ($$$$) {
 
 
 sub DEffective ($$$$$$$) {
-    my ($D,$AU,$lambda,$RStar,$Dk,$q1,$q2) = @_;   # D in metres
+    my ($D,$AU,$lambda,$RStar,$Dk,$qL,$qS) = @_;   # D in metres
     my $fresnel_scale = sqrt($lambda*$AU*$AU_M/2.0);
 
     # from Nihei 2007
     #  - but with D transitioning between D and Dmean at 2Fsu
-    my $Dmean = Dmean($D, $Dk, $q1, $q2);
+    my $Dmean = Dmean($D, $Dk, $qL, $qS);
     #trans x, a, b, x0, width
     #my $Dinterp = transition($D,$D,$Dmean,
     #2.0*$fresnel_scale,$fresnel_scale/1.0);
@@ -172,8 +172,8 @@ sub expectationTime ($$) {
 
     # throw an error if necessary
     if ($percent < 0 or $percent > 1.0) {
-	carp("percent: $percent not in range 0 < p < 1.0 ... using 0.95\n");
-	$percent = 0.95;
+        carp("percent: $percent not in range 0 < p < 1.0 ... using 0.95\n");
+        $percent = 0.95;
     }
 
     # convert to the percent of seeing nothing.
@@ -199,8 +199,8 @@ sub pMax ($$) {
 
     # throw an error if necessary
     if ($percent < 0 or $percent > 1.0) {
-	carp("percent: $percent not in range 0 < p < 1.0 ... using 0.95\n");
-	$percent = 0.95;
+        carp("percent: $percent not in range 0 < p < 1.0 ... using 0.95\n");
+        $percent = 0.95;
     }
 
     # convert to the percent of seeing nothing.
@@ -287,8 +287,8 @@ sub expectTimePois ($$$$$) {
 
     # throw an error if necessary
     if ($Pconf < 0 or $Pconf > 1.0) {
-	carp("percent: $Pconf not in range 0 < p < 1.0 ... using 0.95\n");
-	$Pconf = 0.95;
+        carp("percent: $Pconf not in range 0 < p < 1.0 ... using 0.95\n");
+        $Pconf = 0.95;
     }
 
     my $expectationTime = log(1.0 - $Pconf) / (-2.0*$bmaxAS*$vRetAS*$nSas);
@@ -296,16 +296,16 @@ sub expectTimePois ($$$$$) {
 }
 
 sub Dmean($$$$) {
-  my ($Do, $Dk, $q1, $q2) = @_;
+  my ($Do, $Dk, $qL, $qS) = @_;
 
   my $tolerance = 1.0e-6;
   my $Dmean = $Do;
-  if ( abs($q2 - 2.0) < $tolerance ) {
-      $Dmean = ( (1.0 - $q1) / (2.0 - $q1) + log($Dk/$Do) ) * $Do;
+  if ( abs($qS - 2.0) < $tolerance ) {
+      $Dmean = ( (1.0 - $qL) / (2.0 - $qL) + log($Dk/$Do) ) * $Do;
   } else {
-      $Dmean = ( ( (1.0-$q1)/(2.0-$q1) - 
-		   (1.0-$q2)/(2.0-$q2) )*($Do/$Dk)**($q2-2.0) +
-		 (1.0-$q2)/(2.0-$q2) ) * $Do;
+      $Dmean = ( ( (1.0-$qL)/(2.0-$qL) - 
+                   (1.0-$qS)/(2.0-$qS) )*($Do/$Dk)**($qS-2.0) +
+                 (1.0-$qS)/(2.0-$qS) ) * $Do;
   }
   return $Dmean;
 }
