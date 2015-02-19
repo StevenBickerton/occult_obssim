@@ -131,3 +131,30 @@ SNR colored    Impact_parameter   vs.   TNO_Radius
 --> very informative.  Shows 'sigma' of a detection for range
     of TNO sizes and occultation impact parameters
 
+
+
+== Getting KBO densities and occultation rates ==
+
+See the KBOexpect.pl script:
+
+KBOexpect.pl with no arguments prints 95% confidence expectation time to wait for an event.
+
+$ ./bin/KBOexpect.pl help
+
+Usage: KBOexpect.pl [options]
+Options: elong=(d)   -- d in degrees
+         rknee=(m)   -- m in metres
+         lambda=(m)  -- m in metres
+         RStar=(m)   -- m in metres
+         mode=N      -- N = 1,2,3,4,5 (see below)
+         ttot=(s)    -- s in seconds
+         percent=(p) -- (0 < p < 1.0)
+
+mode1: N per sqr arcsec
+mode2: prob of occultation per star per hour
+mode3: Num. of starhrs for 95% cert. of 1 or more occultations
+mode4: Num. of starhrs for 50% cert. of 1 or more occultations
+mode5: Num. of starhrs for (percent)% cert. of 1 or more occultations
+
+
+
