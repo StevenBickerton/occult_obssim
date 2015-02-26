@@ -87,9 +87,10 @@ foreach my $ref ( @mktypes ) {
 
     my ($aperture, $AUts) = $tsfile =~ /ts(\d\.\d\d\d).(\d\d\d\d).fits/;
     next unless $aperture =~ /$ap/ and $AUts =~ /$AU0/;
-    
 
-    my ($dummy, $dummy2, $rms) = split /\s+/, `cstats -rs $tsfile`;
+    my $cstat_cmd = "cstats -rs $tsfile";
+    print STDERR "$cstat_cmd";
+    my ($dummy, $dummy2, $rms) = split /\s+/, `$cstat_cmd`;
     my $Rstarproj = $AU0 * $AU_M * ($star{$mk}{'R'} * $Ro_M) / ($dist * $PC_M);
     my $RstarFsu = $Rstarproj / $fsu;
 

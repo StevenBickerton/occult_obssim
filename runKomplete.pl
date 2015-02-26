@@ -114,9 +114,10 @@ foreach my $ref ( @mktypes ) {
     printf KPAR "$cyc $nCyc $corTh $chiTh fresnelFiles${AUstr} $Noff $norm\n";
     close(KPAR);
 
-    my $komp_cmd = "komplete -r $rdnoise $elong $incl $komppars $tsfile";
+    my $komp_cmd = "komplete -r $rdnoise $elong $incl $komppars $tsfile"; 
+    print STDERR $komp_cmd."\n";
     system($komp_cmd);
-
+    print STDERR "Done komplete\n";
   }
   chdir "../";
 
