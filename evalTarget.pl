@@ -26,7 +26,7 @@ $Nrun = 0 unless $Nrun;
 $IOCOpowerform = 0 unless $IOCOpowerform;
 $prefix = "" unless $prefix;
 
-my @AUs = (40,300);
+my @AUs = (40,300,1000);
 # @AUs = (40);
 # @AUs = (300);
 
