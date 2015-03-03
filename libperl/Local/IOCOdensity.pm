@@ -58,8 +58,6 @@ sub CMDF($$$) {
 sub IOCOdensity($) {
   
   
-  #my ($q_small, $q_large, $r_break, $r_max, $mass, $width) =
-  #  (3.0, 4.5, 25, 2.5e3, 3.0, 45.0);
   my ($q_small, $q_large, $r_break, $r_max, $mass, $width) =
     (2.5, 4.5, 35, 2.5e3, 3.0, 35.0);
   
