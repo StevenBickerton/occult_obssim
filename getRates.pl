@@ -133,7 +133,7 @@ foreach my $ref ( @mktypes ) {
                     (206265.0**2) / ($AU0 * $AU_M)**2;
                 
                 # integrate the values for the INNER OORT CLOUD
-            } elsif ( abs($AU0 - 300) < 1 ) {
+            } elsif ( $AU0 > 200 ) {
                 ($nSas) = (IOCOdensity($rmin))[$OCOpowerform];
                 my $nSas_prev = $nSas;
                 my $n_rbin = 20;
@@ -207,11 +207,12 @@ foreach my $aperture (@apertures) {
     
     open(FULLRATE, ">${prefix}rate_${AUstr}_$aperture");
     print FULLRATE $head2 if ($aperture eq $apertures[0]);
+    my $irate = ($rates{$aperture} > 0.0) ? 1.0/$rates{$aperture} : 0.0;
     my $line = sprintf "$aperture %10.4g %4d %5.2f %4d ".
         "%10.4g  %9.3f  %6.2g".
         "\n", $rates{$aperture}, $n{$aperture}, 
         $mklimit{$aperture} + $distmod + $Av, $AU0,
-        1.0/$rates{$aperture}, $rates{$aperture}*86400*365.24, $prefix_entry;
+        $irate, $rates{$aperture}*86400*365.24, $prefix_entry;
     print FULLRATE $line;
     close(FULLRATE);
     

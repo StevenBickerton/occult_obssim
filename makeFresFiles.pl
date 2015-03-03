@@ -25,16 +25,9 @@ my $usage = "Usage: $exe dist lamlo lamhi AU Nrun(0 for all)\n";
 my ($dist, $lamlo, $lamhi, $AU, $Nrun) = @ARGV;
 die $usage unless $AU;
 
-
-my @rads;
-
-if ( abs($AU-40.0) < 1 ) {
-  @rads = map {25*$_ + 50} (0..78);
-  unshift @rads, (5, 10, 15, 20, 30, 40);
-} elsif ( abs($AU-300.0) < 1) {
-  @rads = map {100*$_ + 200} (0..78);
-  unshift @rads, (20, 40, 60, 80, 120, 160);
-}
+my $fsu_ratio = int(sqrt(2.0*$AU/40.0));
+my @rads  = map {25*($fsu_ratio)*$_ + 50} (0..78);
+unshift @rads, map {($fsu_ratio)*$_} (5, 10, 15, 20, 30, 40);
 
 my %starsUsed;
 my $starDbFile = "starDB.dat";
@@ -44,7 +37,6 @@ while (<STARDB>) {
     $starsUsed{$fields[0]} = 1;
 }
 close(STARDB);
-
 
 $Nrun = map {$_=~/V/} (keys %star) if $Nrun ==0;
 my $i = 0;
@@ -60,25 +52,26 @@ foreach my $mk (sort keys %starsUsed) {
   (-d $mk) or mkdir $mk;
   chdir $mk;
 
-
   # make the fresnelFiles
   my $AUstr = sprintf "%04d", $AU;
   my $fresdir = "fresnelFiles${AUstr}";
   my $frespars = "params.fres";
-  if (not -d $fresdir) {   #only make the files once
-    mkdir $fresdir;
-    chdir $fresdir;
-    my $frespar_cmd = "writeFresParams $lamlo $lamhi $V $mk $AU > $frespars";
-    system($frespar_cmd);
-    foreach my $rad (@rads) {
-      my $fres_cmd = "fresnelT $rad $Teff $frespars";
-      print STDERR $fres_cmd."\n";
-      system($fres_cmd);
-    }
-    
-    chdir "../";
+  if (not -d $fresdir) {
+      mkdir $fresdir;
   }
-
+  chdir $fresdir;
+  my $frespar_cmd = "writeFresParams $lamlo $lamhi $V $mk $AU > $frespars";
+  system($frespar_cmd);
+  foreach my $rad (@rads) {
+      my $fresfile = sprintf("fres-%05d_%05d", $rad, $AU);
+      if (not -e $fresfile) {
+          my $fres_cmd = "fresnelT $rad $Teff $frespars";
+          print STDERR $fres_cmd."\n";
+          system($fres_cmd);
+      }
+  }
+      
+  chdir "../";
   chdir "../"; 
   $i += 1;
   last if $i >= $Nrun;

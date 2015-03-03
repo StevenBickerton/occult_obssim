@@ -26,9 +26,10 @@ $Nrun = 0 unless $Nrun;
 $IOCOpowerform = 0 unless $IOCOpowerform;
 $prefix = "" unless $prefix;
 
-my @AUs = (40,300);
+my @AUs = (40,300,1000);
 # @AUs = (40);
 # @AUs = (300);
+# @AUs = (1000);
 
 my $cmd_makeStarDB = "./makeStarDB.pl $photfile $dist $Av $Ebmv $columns $FOV";
 system($cmd_makeStarDB);

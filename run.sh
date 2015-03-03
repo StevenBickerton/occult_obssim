@@ -34,7 +34,7 @@ Ebmv=0.255 #sung 1999
 Av=0.79    # 3.1 * Ebmv
 
 # scope params
-HZ=20
+HZ=50
 THRU=0.7 # QE=0.85, other=0.85
 RDNOISE=5 
 LAMLO=4.0e-7
@@ -43,7 +43,7 @@ LAMHI=7.0e-7 # used only to make diffraction templates
 # diameter of primary in metres
 APERTURES="0.10 0.15 0.20 0.30 0.50 0.70 1.00 1.50 2.00"
 #APERTURES="0.15 0.20 0.30 0.50"
-APERTURES="0.95"
+APERTURES="0.17"
 
 #FOVs="0.1 0.2 0.3 0.4"
 FOVs="0.4"
