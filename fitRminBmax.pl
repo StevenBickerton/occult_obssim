@@ -22,9 +22,9 @@ use Local::Elong2v;
 use Local::Stardata;
 
 my $exe = basename($0);
-my $usage = "Usage: $exe stardb dist AU aperture OCOpowerform prefix\n";
+my $usage = "Usage: $exe stardb dist AU aperture OCOpowerform lamda-mid prefix\n";
 
-my ($stardb, $dist, $AU0, $ap, $OCOpowerform, $prefix) = @ARGV;
+my ($stardb, $dist, $AU0, $ap, $OCOpowerform, $lam, $prefix) = @ARGV;
 die $usage unless $ap;
 my $AUstr = sprintf "%04d", $AU0;
 $OCOpowerform = 0 unless $OCOpowerform;
@@ -45,7 +45,6 @@ die "OCOpowerform must be 0 (broken) or 1 (uniform)\n"
 my ($elong, $incl) = (180.0, 0.0);
 my ($q, $q_doh, $rknee) = (4.6, 3.0, 25000.0);
 my $min_nonzero = 20; #min # of nadd!=0 in .stat file
-my ($lam) = 5.5e-7;
 my $fsu = sqrt($lam * $AU0 * $AU_M/2.0);
 
 # count the number of each star
@@ -108,7 +107,7 @@ foreach my $ref ( @mktypes ) {
     my ($rmin, $bmax, $vret, $rwid, $bwid, $r0, $b0, $recov_frac, $s, $rbreak)= 
       (-1, 0.0, 0.0, 0.0, 0.0, -1, 0.0, 0.0, 1.0, -1);
     if ($nonzero > $min_nonzero) {
-      my $rb_cmd = "rmin_bmax_from_stats $statfile";
+      my $rb_cmd = "rmin_bmax_from_stats $statfile -L $lam";
       ($rmin, $bmax, $vret, $rwid, $bwid, $r0, $b0, $recov_frac, $s, $rbreak) = split /\s+/, `$rb_cmd`;
     }
     
