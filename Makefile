@@ -5,17 +5,25 @@ INSTALL = /usr/bin/install
 BINDIR  = $(HOME)/usr/bin
 LIBDIR  = $(HOME)/usr/libperl/OccSim
 
-PL = $(wildcard bin/*.pl)
-SH = $(wildcard bin/*.sh)
-PM = $(wildcard libperl/OccSim/*.pm)
+BINPL = $(wildcard bin/*.pl)
+BINSH = $(wildcard bin/*.sh)
+LIBPM = $(wildcard libperl/OccSim/*.pm)
+PL    = $(patsubst bin/%, %, $(wildcard bin/*.pl))
+SH    = $(patsubst bin/%, %, $(wildcard bin/*.sh))
+
 
 .PHONY: clean bundle
 
 install:
-	$(INSTALL) -C -v $(PL) $(BINDIR)
-	$(INSTALL) -C -v $(SH) $(BINDIR)
+	$(INSTALL) -C -v $(BINPL) $(BINDIR)
+	$(INSTALL) -C -v $(BINSH) $(BINDIR)
 	$(INSTALL) -d $(LIBDIR)
-	$(INSTALL) -C -v $(PM) $(LIBDIR)
+	$(INSTALL) -C -v $(LIBPM) $(LIBDIR)
+
+uninstall:
+	cd $(BINDIR); $(RM) $(PL); cd -
+	cd $(BINDIR); $(RM) $(SH); cd -
+	$(RM) -r $(LIBDIR)
 
 bundle:
 	@ simBundle.sh
