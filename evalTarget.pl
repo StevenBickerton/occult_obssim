@@ -33,20 +33,18 @@ my @AUs = (40,300,1000);
 
 my $lammid = 0.5*($lamlo + $lamhi);
 
-my $cmd_makeStarDB = "./makeStarDB.pl $photfile $dist $Av $Ebmv $columns $FOV";
+my $cmd_makeStarDB = "makeStarDB.pl $photfile $dist $Av $Ebmv $columns $FOV";
 system($cmd_makeStarDB);
 
 foreach my $AU (@AUs) {
 
-  my $cmd_fresfile    = "./makeFresFiles.pl $dist $lamlo $lamhi $AU $Nrun";
-  my $cmd_runkomplete = "./runKomplete.pl $dist $AU $hz $QE $rdnoise $Av $Ebmv $ap";
-  my $cmd_getRate     = "./getRate.pl starDB.dat $dist $AU $ap $IOCOpowerform $prefix";
-  my $cmd_fitRmin     = "./fitRminBmax.pl starDB.dat $dist $AU $ap $IOCOpowerform $lammid $prefix";
-  my $cmd_getRates    = "./getRates.pl starDB.dat $dist $Av $AU $ap $IOCOpowerform $lammid $prefix";
+  my $cmd_fresfile    = "makeFresFiles.pl $dist $lamlo $lamhi $AU $Nrun";
+  my $cmd_runkomplete = "runKomplete.pl $dist $AU $hz $QE $rdnoise $Av $Ebmv $ap";
+  my $cmd_fitRmin     = "fitRminBmax.pl starDB.dat $dist $AU $ap $IOCOpowerform $lammid $prefix";
+  my $cmd_getRates    = "getRates.pl starDB.dat $dist $Av $AU $ap $IOCOpowerform $lammid $prefix";
 
   system($cmd_fresfile);
   system($cmd_runkomplete);
-  #system($cmd_getRate); #depricated
   system($cmd_fitRmin);
   system($cmd_getRates);
 

@@ -62,7 +62,7 @@ do
     PREFIX=""
     for APER in $APERTURES
     do
-        ./evalTarget.pl $DIST $Av $Ebmv $LAMLO $LAMHI $APER $THRU $RDNOISE $HZ $RAWPHOT $RAcol:$Deccol:$Vcol:$BmVcol $FOV $IOCOpowerform $Nrun $PREFIX
+        evalTarget.pl $DIST $Av $Ebmv $LAMLO $LAMHI $APER $THRU $RDNOISE $HZ $RAWPHOT $RAcol:$Deccol:$Vcol:$BmVcol $FOV $IOCOpowerform $Nrun $PREFIX
     done
 done
 
