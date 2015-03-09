@@ -117,19 +117,22 @@ foreach my $ref ( @mktypes ) {
                 my $nSas_prev = $nSas;
                 my $n_rbin = 20;
                 my $rmax = 2000.0 + 10.0*$rmin;
+                my $dr = ($rmax - $rmin)/$n_rbin;
                 my $b = $bmax;
                 for my $i (1 .. $n_rbin) {
-                    my $r = $i*($rmax-$rmin)/$n_rbin;
+                    my $r = $rmin + $i*$dr;
                     my $nSas_tmp = KBOdensity($r, $rknee, $q, $q_doh);
                     my $dnSas = $nSas_prev - $nSas_tmp;
                     my $dn_ms = $dnSas * (206265.0**2) / ($AU0 * $AU_M)**2 ;
                     $b = ($r < $rbreak) ? $bmax : $bmax + $s*($r-$rbreak);
-                    $mu += 2.0 * $b * $vRet * $dn_ms * $recov_frac;
+                    my $mu_tmp = 2.0 * $b * $vRet * $dn_ms * $recov_frac;
+                    $mu += $mu_tmp;
                     $nSas_prev = $nSas_tmp;
                 }
                 # add on something for all objects larger than $rmax
-                $mu += 2.0 * $b * $vRet * KBOdensity($rmax, $rknee, $q, $q_doh) * 
+                my $mu_tmp = 2.0 * $b * $vRet * KBOdensity($rmax, $rknee, $q, $q_doh) * 
                     (206265.0**2) / ($AU0 * $AU_M)**2;
+                $mu += $mu_tmp;
                 
                 # integrate the values for the INNER OORT CLOUD
             } elsif ( $AU0 > 200 ) {
@@ -137,21 +140,23 @@ foreach my $ref ( @mktypes ) {
                 my $nSas_prev = $nSas;
                 my $n_rbin = 20;
                 my $rmax = 2000.0 + 10.0*$rmin;
+                my $dr = ($rmax - $rmin)/$n_rbin;
                 my $b = $bmax;
                 for my $i (1 .. $n_rbin) {
-                    my $r = $i*($rmax-$rmin)/$n_rbin;
+                    my $r = $rmin + $i*$dr;
                     my $nSas_tmp = (IOCOdensity($r))[$OCOpowerform];
                     my $dnSas = $nSas_prev - $nSas_tmp;
                     my $dn_ms = $dnSas * (206265.0**2) / ($AU0 * $AU_M)**2 ;
                     $b = ($r < $rbreak) ? $bmax : $bmax + $s*($r-$rbreak);
-                    $mu += 2.0 * $b * $vRet * $dn_ms * $recov_frac;
+                    my $mu_tmp = 2.0 * $b * $vRet * $dn_ms * $recov_frac;
+                    $mu += $mu_tmp;
                     $nSas_prev = $nSas_tmp;
                 }
                 # add on something for all objects larger than $rmax
-                $mu += 2.0 * $b * $vRet * 
+                my $mu_tmp = 2.0 * $b * $vRet * 
                     (IOCOdensity($rmax))[$OCOpowerform] *
                     (206265.0**2) / ($AU0 * $AU_M)**2;
-                
+                $mu += $mu_tmp;
             }
             
         } else {
