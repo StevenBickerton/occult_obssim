@@ -10,11 +10,11 @@ use strict;
 use warnings;
 use File::Basename;
 
-use Local::KBOdensity;
-use Local::Constants;
-use Local::Elong2v;
-use Local::Units;
-use Local::Misc;
+use OccSim::KBOdensity;
+use OccSim::Constants;
+use OccSim::Elong2v;
+use OccSim::Units;
+use OccSim::Misc;
 
 my $exe = basename($0);
 

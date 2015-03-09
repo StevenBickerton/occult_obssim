@@ -10,12 +10,12 @@
 #
 #
 
-package  Local::Elong2v;
+package  OccSim::Elong2v;
 
 use strict;
 use warnings;
 use Carp;
-use Local::Constants;
+use OccSim::Constants;
 
 use Math::Trig;
 

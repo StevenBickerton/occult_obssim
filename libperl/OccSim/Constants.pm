@@ -6,7 +6,7 @@
 #         bick@physics.mcmaster.ca
 #         Thurs. Sep. 22, 2005
 
-package  Local::Constants;
+package  OccSim::Constants;
 
 use warnings;
 

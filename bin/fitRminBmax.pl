@@ -15,11 +15,11 @@ use strict;
 use warnings;
 use File::Basename;
 
-use Local::Constants;
-use Local::Astrotools;
-use Local::KBOdensity;
-use Local::Elong2v;
-use Local::Stardata;
+use OccSim::Constants;
+use OccSim::Astrotools;
+use OccSim::KBOdensity;
+use OccSim::Elong2v;
+use OccSim::Stardata;
 
 my $exe = basename($0);
 my $usage = "Usage: $exe stardb dist AU aperture OCOpowerform lamda-mid prefix\n";

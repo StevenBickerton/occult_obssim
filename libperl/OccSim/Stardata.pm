@@ -12,7 +12,7 @@
 #  ... those missing in table were interpolated.
 #
 
-package  Local::Stardata;
+package  OccSim::Stardata;
 
 #use strict;
 use warnings;
@@ -270,7 +270,7 @@ sub star ($$) {
 
 # i have no idea why i need this here, but otherwise i get the following
 #  error in a test script which calls the routine
-#Local/Stardata.pm did not return a true value at ./stardata.pl line 8.
+#OccSim/Stardata.pm did not return a true value at ./stardata.pl line 8.
 #BEGIN failed--compilation aborted at ./stardata.pl line 8.
 
 my $test = star("F2V", "Teff");

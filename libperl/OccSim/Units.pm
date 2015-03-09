@@ -8,7 +8,7 @@
 #         bick@physics.mcmaster.ca
 #         Fri. Sep. 23, 2005
 # Functions:   timeUnits, distanceUnits, angleUnits
-package  Local::Units;
+package  OccSim::Units;
 
 use strict;
 use warnings;
@@ -17,7 +17,7 @@ use Carp;
 use Math::Trig;
 
 use lib "$ENV{HOME}/libperl";
-use Local::Constants;
+use OccSim::Constants;
 
 require  Exporter;
 

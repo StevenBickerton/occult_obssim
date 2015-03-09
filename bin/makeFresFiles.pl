@@ -15,9 +15,9 @@ use strict;
 use warnings;
 use File::Basename;
 
-use Local::Constants;
-use Local::Astrotools;
-use Local::Stardata;
+use OccSim::Constants;
+use OccSim::Astrotools;
+use OccSim::Stardata;
 
 my $exe = basename($0);
 my $usage = "Usage: $exe dist lamlo lamhi AU Nrun(0 for all)\n";

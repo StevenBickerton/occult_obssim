@@ -2,7 +2,7 @@
 #
 #
 
-package Local::IOCOdensity;
+package OccSim::IOCOdensity;
 
 use strict;
 use warnings;
@@ -20,7 +20,7 @@ use warnings;
 # 	    );
     
 
-use Local::Constants;
+use OccSim::Constants;
 
 
 require  Exporter;

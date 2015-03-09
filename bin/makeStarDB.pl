@@ -15,9 +15,9 @@ use strict;
 use warnings;
 use File::Basename;
 
-use Local::Constants;
-use Local::Astrotools;
-use Local::Stardata;
+use OccSim::Constants;
+use OccSim::Astrotools;
+use OccSim::Stardata;
 
 my $exe = basename($0);
 my $usage = "Usage: $exe infile dist(pc) Av Ebmv RA:Dec:V:BmV-columns FOV\n";

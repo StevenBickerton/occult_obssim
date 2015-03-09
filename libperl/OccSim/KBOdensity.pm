@@ -6,14 +6,14 @@
 # Author: Steve Bickerton, McMaster University
 #         bick@physics.mcmaster.ca
 #         Thurs.  Sep 22 2005
-package  Local::KBOdensity;
+package  OccSim::KBOdensity;
 
 use strict;
 use warnings;
 use Carp;
 
-use Local::Constants;
-use Local::Astrotools;
+use OccSim::Constants;
+use OccSim::Astrotools;
 
 require  Exporter;
 our @ISA       = qw( Exporter );

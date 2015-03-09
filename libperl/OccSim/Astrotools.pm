@@ -18,13 +18,13 @@
 # ecc2true ($E, $e): converts eccentric anomaly to true anomaly.
 #
 
-package  Local::Astrotools;
+package  OccSim::Astrotools;
 
 use strict;
 use warnings;
 use Carp;
 
-use Local::Constants;
+use OccSim::Constants;
 
 use Math::Trig;
 

@@ -15,11 +15,11 @@ use strict;
 use warnings;
 use File::Basename;
 
-use Local::Constants;
-use Local::Astrotools;
-use Local::Stardata;
-use Local::KBOdensity;
-use Local::Elong2v;
+use OccSim::Constants;
+use OccSim::Astrotools;
+use OccSim::Stardata;
+use OccSim::KBOdensity;
+use OccSim::Elong2v;
 
 my $exe = basename($0);
 my $usage = "Usage: $exe dist AU hz QE rdnoise Av Ebmv ap1 ap2 ap3 ...\n";
