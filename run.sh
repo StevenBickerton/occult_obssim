@@ -22,7 +22,7 @@ set -x
 
 
 # target data
-RAWPHOT=star_catalog.dat
+RAWPHOT=data/star_catalog.dat
 Vcol=11
 BmVcol=13
 RAcol=18   #degrees
