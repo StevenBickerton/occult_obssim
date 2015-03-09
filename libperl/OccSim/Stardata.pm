@@ -233,14 +233,14 @@ foreach my $lum_class ( keys %data_set ) {
     foreach my $line (@lines) {
 
       my ($code,  $spectype, $teff, $L, $R, $M, $Mbol, $BC, 
-	  $Mv, $UmB, $BmV, $VmR, $RmI);
+          $Mv, $UmB, $BmV, $VmR, $RmI);
       if ($lum_class =~ /V/) {
-	($code, $spectype, $teff, $L, $R, $M, $Mbol, $BC, 
-	 $Mv, $UmB, $BmV, $VmR, $RmI) = split /\s+/, $line;
+          ($code, $spectype, $teff, $L, $R, $M, $Mbol, $BC, 
+           $Mv, $UmB, $BmV, $VmR, $RmI) = split /\s+/, $line;
       } else {
-	($code, $spectype, $teff, $L, $R, $M, $Mbol, 
-	 $BC, $Mv, $UmB, $BmV) = split /\s+/, $line;
-	($VmR,$RmI) = (-99,-99);
+          ($code, $spectype, $teff, $L, $R, $M, $Mbol, 
+           $BC, $Mv, $UmB, $BmV) = split /\s+/, $line;
+          ($VmR,$RmI) = (-99,-99);
       }
       $star{"$spectype"."$lum_class"}{"Teff"} = $teff;
       $star{"$spectype"."$lum_class"}{"L"} = $L;

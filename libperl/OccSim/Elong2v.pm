@@ -83,10 +83,10 @@ sub elongi2v ($$$) {
     my $elong_lim = ($rkp<1.0) ? asin($rkp) : 360.0;
 
     if ($elong > $elong_lim) {
-	my $elongD = $DEG*$elong_lim;
-	printf STDERR 
-	    "Elongation cannot exceed %.2f deg at this inclination.  Returning 0\n", $elongD;
-	return 0;
+        my $elongD = $DEG*$elong_lim;
+        printf STDERR 
+            "Elongation cannot exceed %.2f deg at this inclination.  Returning 0\n", $elongD;
+        return 0;
     }
 
     my $zk = $rk * sin($i);
@@ -115,8 +115,8 @@ sub elongi2v ($$$) {
 
 
     my ($vkx, $vky, $vkz) = 
-	(-$vk*sin($alpha-$beta), $vk*cos($alpha-$beta), 0.0);
-
+        (-$vk*sin($alpha-$beta), $vk*cos($alpha-$beta), 0.0);
+    
     my ($dvx, $dvy, $dvz) = ($vkx - $vex, $vky - $vey, $vkz - $vez);
     my $dv = sqrt($dvx**2 + $dvy**2 + $dvz**2);
 
@@ -126,19 +126,9 @@ sub elongi2v ($$$) {
 
     my $theta = acos($l*$l2 + $m*$m2 + $n*$n2);
 
-    #my $vdotr = ($dvx*($xk-$xe) + $dvy*($yk-$ye) + $dvz*($zk-$ze));
-    #my $absV = $dv;
-    #my $absR = $d;
-    #my $theta2 = acos( $vdotr / ($absV*$absR) );
 
     my $vPerp = $dv * sin($theta);
     $vPerp /= 100.0;
-
-    #warn db($elong, $alpha, $beta,
-#	    $rk, $rkp, $d, $dp, $xe, $ye, $ze, $xk, $yk, $zk, $l, $m, $n, 
-	#    $vex, $vey, $vez, $vkx, $vky, $vkz, $dvx, $dvy, $dvz, 
-	#    $dv, $l2, $m2, $n2, $DEG*$theta, $vPerp );
-
 
 
     return $vPerp;  # in metres
@@ -150,10 +140,10 @@ sub elong2v ($$) {
     croak "usage: \$v = elong2v(\$elong, \$rk);\n" unless $rk;
 
     my $v = $Ve * ( 
-		    sqrt(  (1.0/$rk) * (1.0-(1.0/$rk**2)*sin($elong)**2)  ) + 
-		    cos($elong) 
-		    );
-
+        sqrt(  (1.0/$rk) * (1.0-(1.0/$rk**2)*sin($elong)**2)  ) + 
+        cos($elong) 
+        );
+    
     $v /= 100; # to convert to metres
 
     return $v;
@@ -174,14 +164,14 @@ sub v2elong ($$$) {
     my $d_elong = 2*$tolerance; 
     while ( $d_elong > $tolerance && $count < $max_count ) {
 
-	my $v    = $v0 - elong2v($elong, $AU);
-	my $dvde = dvde($elong, $AU);
+        my $v    = $v0 - elong2v($elong, $AU);
+        my $dvde = dvde($elong, $AU);
+        
+        $elong_new = $elong - $v/$dvde;
 
-	$elong_new = $elong - $v/$dvde;
-
-	$d_elong = abs($elong_new - $elong);
-	$elong = $elong_new;
-	$count++;
+        $d_elong = abs($elong_new - $elong);
+        $elong = $elong_new;
+        $count++;
     }
 
     return $elong;  # in radians

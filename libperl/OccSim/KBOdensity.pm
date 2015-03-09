@@ -18,7 +18,7 @@ use OccSim::Astrotools;
 require  Exporter;
 our @ISA       = qw( Exporter );
 our @EXPORT    = qw( KBOdensity KBOprobability expectationTime m2arcsec
-		     maxDensity pMax DEffective KBOpoisProb expectTimePois
+                     maxDensity pMax DEffective KBOpoisProb expectTimePois
                      Dmean);
 our @EXPORT_OK = qw();
 our @EXPORT_TAGS = ( ALL => [ @EXPORT_OK ], );

@@ -32,74 +32,74 @@ require  Exporter;
 
 our @ISA       = qw( Exporter );
 our @EXPORT    = qw( 
-		     $JD2000
-		     $degnum
-		     $hmsnum
-		     JCentury 
-		     radiusEllipse
-		     reduceAngle
-		     mean2ecc
-		     ecc2true
-		     mean2true
-		     JDsolsticeEquinox
-		     ymd
-		     hms
-		     date
-		     calendar2JD
-		     JD2calendar
-		     JD2epoch
-		     epoch2JD
-		     calendar2epoch
-		     epoch2calendar
-		     precess
-		     separation
-		     eclipticObliquity
-		     sunGeoMeanLong
-		     sunMeanAnom
-		     sunEquationOfCenter
-		     sunTrueLongitude
-		     sunTrueLongJ2000
-		     sunAppLongitude
-		     sunTrueAnomaly
-		     earthEccentricity
-		     earthOrbitRadius
-		     sunRAdec
-		     sunAppRAdec
-		     hms2deg
-		     deg2hms
-		     hms2degRADec
-		     deg2hmsRADec
-		     hms2degS
-		     deg2hmsS
-		     eq2gal
-		     gal2eq
-		     eq2ecl
-		     ecl2eq
-		     getDatesOfCoordsAtElong	
-		     getLatsOfElongAtDate
-		     getRADecOfElongAtDate
-		     getElongOfCoordsAtDate
-		     greenwichSidereal0hUT
-		     greenwichSidereal
-		     yearDay
-		     eq2hA
-		     hA2eq
-		     mag2flux
-		     magSum
-		     fluxRatio
-		     magDiff
-		     Hmag2mv
-		     mv2Hmag
-		     mv2rad
-		     Hmag2diam
-		     fresnelScale
-		     TNO_Rmag
-		     get_TNOrad_from_RAUa
-		     get_TNOAU_from_Rrada
-                     reflectedVmag
-			transition
-                     log10
-		     );
+     $JD2000
+     $degnum
+     $hmsnum
+     JCentury 
+     radiusEllipse
+     reduceAngle
+     mean2ecc
+     ecc2true
+     mean2true
+     JDsolsticeEquinox
+     ymd
+     hms
+     date
+     calendar2JD
+     JD2calendar
+     JD2epoch
+     epoch2JD
+     calendar2epoch
+     epoch2calendar
+     precess
+     separation
+     eclipticObliquity
+     sunGeoMeanLong
+     sunMeanAnom
+     sunEquationOfCenter
+     sunTrueLongitude
+     sunTrueLongJ2000
+     sunAppLongitude
+     sunTrueAnomaly
+     earthEccentricity
+     earthOrbitRadius
+     sunRAdec
+     sunAppRAdec
+     hms2deg
+     deg2hms
+     hms2degRADec
+     deg2hmsRADec
+     hms2degS
+     deg2hmsS
+     eq2gal
+     gal2eq
+     eq2ecl
+     ecl2eq
+     getDatesOfCoordsAtElong	
+     getLatsOfElongAtDate
+     getRADecOfElongAtDate
+     getElongOfCoordsAtDate
+     greenwichSidereal0hUT
+     greenwichSidereal
+     yearDay
+     eq2hA
+     hA2eq
+     mag2flux
+     magSum
+     fluxRatio
+     magDiff
+     Hmag2mv
+     mv2Hmag
+     mv2rad
+     Hmag2diam
+     fresnelScale
+     TNO_Rmag
+     get_TNOrad_from_RAUa
+     get_TNOAU_from_Rrada
+     reflectedVmag
+     transition
+     log10
+    );
 
 our @EXPORT_OK = qw();
 our @EXPORT_TAGS = ( ALL => [ @EXPORT_OK ], );
@@ -158,7 +158,7 @@ sub hms(@) {
 }
 sub date(@) {
     croak "usage: my \$string = ymd(\$Y, \$M, \$D, [\$H, \$m, \$S]);\n" 
-	unless $_[2];
+        unless $_[2];
     my @ymd = @_[0,1,2];
     my @hms = ( defined($_[5]) ) ? @_[3,4,5] : (0,0,0);
     return sprintf "%s  %s", ymd(@ymd), hms(@hms);
@@ -180,8 +180,8 @@ sub calendar2JD (@) {
     my $SpD = $minpD*60.0;
 
     if ( $M <= 2 ) {
-	$Y -= 1;
-	$M += 12;
+        $Y -= 1;
+        $M += 12;
     }
 
     my $A = int($Y/100);
@@ -189,9 +189,9 @@ sub calendar2JD (@) {
 
     my ($y,$m,$d) = (1582, 10, 4);
     $B = 0 if ($Y<$y || 
-	       ($Y==$y && $M<$m) || 
-	       ($Y==$y && $M==$m && $D<=4));
-
+               ($Y==$y && $M<$m) || 
+               ($Y==$y && $M==$m && $D<=4));
+    
     my $JD = int(365.25*($Y+4716)) + int(30.6001*($M+1)) + $D + $B - 1524.5;
     $JD += $H / $HpD + $min / $minpD + $S / $SpD;
 
@@ -291,7 +291,7 @@ sub epoch2calendar ($) {
 sub yearDay($$$) {
     my ($Y, $M, $D) = @_;
     croak "usage: \$yday = yearDay(\$year,\$month,\$day);\n" 
-	unless defined($D);
+        unless defined($D);
 
     my $is_leap = (! ($Y % 4) && ($Y % 400) ) ? 1 : 0;
     my $K = ($is_leap) ? 1 : 2;
@@ -313,7 +313,7 @@ sub greenwichSidereal0hUT ($) {
     my $JDmidnight = calendar2JD($Y, $M, $D, 0, 0, 0);
     my $T = JCentury($JDmidnight);
     my $theta0 = 100.460_618_37 + 36_000.770_053_608*$T +
-	0.000_387_933*$T**2 - $T**3/38_710_000;
+        0.000_387_933*$T**2 - $T**3/38_710_000;
     return reduceAngle($theta0);
 }
 
@@ -322,7 +322,7 @@ sub greenwichSidereal ($) {
     my ($JD) = @_;
     my $T = JCentury($JD);
     my $theta0 = 280.460_618_37 + 360.985_647_366_29*($JD-$JD2000) +
-	0.000_387_933*$T**2 - $T**3/38_710_000;
+        0.000_387_933*$T**2 - $T**3/38_710_000;
     return reduceAngle($theta0);
 }
 
@@ -360,7 +360,7 @@ sub deg2hms ($) {
     my $hour = int $radec;
     my $min = int (($radec - $hour)*60);
     my $sec = ( ($radec - $hour)*60 - $min )*60;
-	
+    
     return ( $sign*$hour,$min,$sec);
 }   
 
@@ -373,7 +373,7 @@ sub deg2hmsS ($) {
 
     my $sign = ($radec>=0) ? 1 : (-1);
     $radec = abs($radec);
-	
+    
     my $hour = int $radec;
     my $min = int (($radec - $hour)*60);
     my $sec = ( ($radec - $hour)*60 - $min )*60;
@@ -382,15 +382,15 @@ sub deg2hmsS ($) {
     my $signS = ($sign >= 0) ? "" : "-";
     my $secS = sprintf "%06.3f", $sec;
     if ($secS >= 60.000) {
-	$secS = "00.000";
-	$min += 1;
-	if ($min == 60) {
-	    $min = 0;
-	    $hour += 1;
-	    if ($hour == 360) {
-		$hour = 0;
-	    }
-	}
+        $secS = "00.000";
+        $min += 1;
+        if ($min == 60) {
+            $min = 0;
+            $hour += 1;
+            if ($hour == 360) {
+                $hour = 0;
+            }
+        }
     }
     
     my $hmsS = sprintf "%s%02d:%02d:%s", $signS, $hour,$min, $secS;
@@ -408,7 +408,7 @@ sub hms2degS ($) {
 
     my $sign = ($hour>=0) ? 1 : (-1);
     $hour = abs($hour);
-	
+    
     my $deg = $sign*($hour + $min/60.0 + $sec/3600.0);
     return $deg;
 }
@@ -420,10 +420,10 @@ sub hms2deg ($$$) {
 
     my ($hour,$min,$sec) = @_;
     croak "usage: \$deg = hms2deg(\$hr,\$min,\$sec);\n" unless defined $sec;
-	
+    
     my $sign = ($hour>=0) ? 1 : (-1);
     $hour = abs($hour);
-	
+    
     my $deg = $sign*($hour + $min/60.0 + $sec/3600.0);
     return $deg;
 }
@@ -510,14 +510,14 @@ sub eq2ecl ($$$) {
 sub eq2hA ($$$$$) {
     my ($alpha, $delta, $L, $psi, $JD) = @_;
     croak "usage: (\$h, \$A) = eq2AA(\$alpha \$delta, \$long, \$lat, \$JD);\n" 
-	unless $JD;
-
+        unless $JD;
+    
     my $theta0 = greenwichSidereal($JD);
     my $H = $theta0 - $L - $alpha;
     
     # convert angles to radians
     ($alpha, $delta, $L, $psi, $theta0, $H) = 
-	map {$RAD*$_} ($alpha, $delta, $L, $psi, $theta0, $H);
+        map {$RAD*$_} ($alpha, $delta, $L, $psi, $theta0, $H);
 
     # note that azimuth A is measured from the _South_
     my $A = atan2( sin($H), (cos($H)*sin($psi) - tan($delta)*cos($psi)) );
@@ -532,7 +532,7 @@ sub eq2hA ($$$$$) {
 sub hA2eq ($$$$$) {
     my ($h, $A, $L, $psi, $JD) = @_;
     croak "usage: (\$h, \$A) = eq2AA(\$alpha \$delta, \$long, \$lat, \$JD);\n" 
-	unless $JD;
+        unless $JD;
 
     # convert angles to radians
     ($h, $A, $psi) = map {$RAD*$_}  ($h, $A, $psi);
@@ -569,7 +569,7 @@ sub hA2eq ($$$$$) {
 #-----------------------------------------------
 sub separation ($$$$) {
     my ($RA1, $Dec1, $RA2, $Dec2) = @_  or 
-	croak "usage: \$d = separation(\$RA1,\$Dec1,\$RA2,\$Dec2)\n";
+        croak "usage: \$d = separation(\$RA1,\$Dec1,\$RA2,\$Dec2)\n";
     croak "Function separation() not yet implemented\n";
 }
 
@@ -591,28 +591,28 @@ sub separation ($$$$) {
 #-----------------------------------------------
 sub precess ($$$$) {
     my ($alpha0, $delta0, $JD0, $JD) = @_  or 
-	croak "usage: (\$alpha, \$delta) = precess(\$alpha0,\$delta0,\$JD0,\$JD)\n";
-
+        croak "usage: (\$alpha, \$delta) = precess(\$alpha0,\$delta0,\$JD0,\$JD)\n";
+    
     my $T = ($JD0 - $JD2000) / 36525.0;
     my $t =     ($JD - $JD0) / 36525.0;
-
+    
     my $xi = (2306.2181 + 1.39656*$T - 0.000139*$T**2)*$t + 
-	(0.30188 - 0.000344*$T)*$t**2 + 0.017998*$t**3;
+        (0.30188 - 0.000344*$T)*$t**2 + 0.017998*$t**3;
     my $z = (2306.2181 + 1.39656*$T - 0.000139*$T**2)*$t + 
-	(1.09468 + 0.000066*$T)*$t**2 + 0.018203*$t**3;
+        (1.09468 + 0.000066*$T)*$t**2 + 0.018203*$t**3;
     my $theta = (2004.3109 - 0.85330*$T - 0.000217*$T**2)*$t -
-	(0.42665 + 0.000217*$T)*$t**2 - 0.041833*$t**3;
-
+        (0.42665 + 0.000217*$T)*$t**2 - 0.041833*$t**3;
+    
     ($alpha0, $delta0) = map {$RAD * $_} ($alpha0, $delta0);
     ($xi, $z, $theta)  = map {$_ / $ASperRAD} ($xi, $z, $theta);
-
-
+    
+    
     my $A = cos($delta0) * sin($alpha0 + $xi);
     my $B = cos($theta)*cos($delta0)*cos($alpha0 + $xi) - 
-	sin($theta)*sin($delta0);
+        sin($theta)*sin($delta0);
     my $C = sin($theta)*cos($delta0)*cos($alpha0 + $xi) + 
-	cos($theta)*sin($delta0);
-
+        cos($theta)*sin($delta0);
+    
     my $alpha = reduceAngle($DEG * ( atan2($A,$B) + $z));
     my $delta = $DEG * asin($C);
 
@@ -646,15 +646,15 @@ sub eclipticObliquity ($) {
     my $U = $T / 100.0;
 
     my $correction = - 4680.93 * $U
-	-    1.55 * $U**2
-	+ 1999.25 * $U**3
-	-   51.38 * $U**4
-	-  249.67 * $U**5
-	-   39.05 * $U**6
-	+    7.12 * $U**7
-	+   27.87 * $U**8
-	+    5.79 * $U**9
-	+    2.45 * $U**10;
+        -    1.55 * $U**2
+        + 1999.25 * $U**3
+        -   51.38 * $U**4
+        -  249.67 * $U**5
+        -   39.05 * $U**6
+        +    7.12 * $U**7
+        +   27.87 * $U**8
+        +    5.79 * $U**9
+        +    2.45 * $U**10;
     
     my $epsilon0 = 23.0 + 26.0/60.0 + (21.488 + $correction)/3600.0;
     
@@ -710,8 +710,8 @@ sub sunEquationOfCenter ($) {
     my $M = sunMeanAnom ($JD);
     my $T = JCentury($JD);
     my $C = (1.914602 - 0.004817*$T - 0.000014*$T**2.0 )*sin($RAD*$M)
-	+ ( 0.019993 - 0.000101*$T )*sin($RAD*2.0*$M) 
-	+  0.000289*sin($RAD*3.0*$M);
+        + ( 0.019993 - 0.000101*$T )*sin($RAD*2.0*$M) 
+        +  0.000289*sin($RAD*3.0*$M);
     return reduceAngle($C);
 }
 
@@ -824,31 +824,31 @@ sub sunAppRAdec ($) {
 # Limitation: 
 #-----------------------------------------------
 my @ABC = ( 
-	    [ 485, 324.96, 1934.136   ],
-	    [ 203, 337.23, 32964.467  ],
-	    [ 199, 342.08, 20.186     ],  
-	    [ 182, 27.85,  445267.112 ],	
-	    [ 156, 73.14,  45036.886  ],	
-	    [ 136, 171.52, 22518.443  ],	
-	    [ 77,  222.54, 65928.934  ],	
-	    [ 74,  296.72, 3034.906   ],	
-	    [ 70,  243.58, 9037.513   ],	
-	    [ 58,  119.81, 33718.147  ],	
-	    [ 52,  297.17, 150.678    ], 	
-	    [ 50,  21.02,  2281.226   ],	
-	    [ 45,  247.54, 29929.562  ],	
-	    [ 44,  325.15, 31555.956  ],	
-	    [ 29,  60.93,  4443.417   ],
-	    [ 18,  155.12, 67555.328  ],	
-	    [ 17,  288.79, 4562.452   ],	
-	    [ 16,  198.04, 62894.029  ],	
-	    [ 14,  199.76, 31436.921  ],	
-	    [ 12,  95.39,  14577.848  ],	
-	    [ 12,  287.11, 31931.756  ], 	
-	    [ 12,  320.81, 34777.259  ],	
-	    [ 9,   227.73, 1222.114   ],	
-	    [ 8,   15.45,  16859.073  ] 	    
-	    );
+    [ 485, 324.96, 1934.136   ],
+    [ 203, 337.23, 32964.467  ],
+    [ 199, 342.08, 20.186     ],  
+    [ 182, 27.85,  445267.112 ],	
+    [ 156, 73.14,  45036.886  ],	
+    [ 136, 171.52, 22518.443  ],	
+    [ 77,  222.54, 65928.934  ],	
+    [ 74,  296.72, 3034.906   ],	
+    [ 70,  243.58, 9037.513   ],	
+    [ 58,  119.81, 33718.147  ],	
+    [ 52,  297.17, 150.678    ], 	
+    [ 50,  21.02,  2281.226   ],	
+    [ 45,  247.54, 29929.562  ],	
+    [ 44,  325.15, 31555.956  ],	
+    [ 29,  60.93,  4443.417   ],
+    [ 18,  155.12, 67555.328  ],	
+    [ 17,  288.79, 4562.452   ],	
+    [ 16,  198.04, 62894.029  ],	
+    [ 14,  199.76, 31436.921  ],	
+    [ 12,  95.39,  14577.848  ],	
+    [ 12,  287.11, 31931.756  ], 	
+    [ 12,  320.81, 34777.259  ],	
+    [ 9,   227.73, 1222.114   ],	
+    [ 8,   15.45,  16859.073  ] 	    
+    );
 
 
 sub JDsolsticeEquinox ($$) {
@@ -859,66 +859,66 @@ sub JDsolsticeEquinox ($$) {
     my ($y0, $y1, $y2, $y3, $y4);
     if ( $year<1000 ) {
 
-	$Y = $year / 1000.0;
-
-	if ( $season == 1 ) {
-	    ($y0, $y1, $y2, $y3, $y4) = 
-		(1721139.29189, 365242.13740, 0.06134, 0.00111, -0.00071);
-	} elsif ($season == 2) {
-	    ($y0, $y1, $y2, $y3, $y4) = 
-		(1721233.25401, 365241.72562, -0.05323, 0.00907, 0.00025);
-	} elsif ($season == 3) {
-	    ($y0, $y1, $y2, $y3, $y4) = 
-		(1721325.70455, 365242.49558, -0.11677, -0.00297, 0.00074);
-	} elsif ($season == 4) {
-	    ($y0, $y1, $y2, $y3, $y4) = 
-		(1721414.39987, 365242.88257, -0.00769, -0.00933, 0.00006);
-	} else {
-	    warn "Season: 1 (spring), 2 (summer), etc JDaries() returning 0\n";
-	    return 0;
-	}
-
+        $Y = $year / 1000.0;
+        
+        if ( $season == 1 ) {
+            ($y0, $y1, $y2, $y3, $y4) = 
+                (1721139.29189, 365242.13740, 0.06134, 0.00111, -0.00071);
+        } elsif ($season == 2) {
+            ($y0, $y1, $y2, $y3, $y4) = 
+                (1721233.25401, 365241.72562, -0.05323, 0.00907, 0.00025);
+        } elsif ($season == 3) {
+            ($y0, $y1, $y2, $y3, $y4) = 
+                (1721325.70455, 365242.49558, -0.11677, -0.00297, 0.00074);
+        } elsif ($season == 4) {
+            ($y0, $y1, $y2, $y3, $y4) = 
+                (1721414.39987, 365242.88257, -0.00769, -0.00933, 0.00006);
+        } else {
+            warn "Season: 1 (spring), 2 (summer), etc JDaries() returning 0\n";
+            return 0;
+        }
+        
     } else {
-
-	$Y = ( $year - 2000.0 ) / 1000.0;
-
-	if ( $season == 1 ) {
-	    ($y0, $y1, $y2, $y3, $y4) = 
-		(2451623.80984, 365242.37404, 0.05169, -0.00411, -0.00057);
-	} elsif ($season == 2) {
-	    ($y0, $y1, $y2, $y3, $y4) = 
-		(2451716.56767, 365241.62603, 0.00325, 0.00888, -0.00030);
-	} elsif ($season == 3) {
-	    ($y0, $y1, $y2, $y3, $y4) = 
-		(2451810.21715, 365242.01767, -0.11575, 0.00337, 0.00078);
-	} elsif ($season == 4) {
-	    ($y0, $y1, $y2, $y3, $y4) = 
-		(2451900.05952, 365242.74049, -0.06223, -0.00823, 0.00032);
-	} else {
-	    warn "Season: 1 (spring), 2 (summer), etc JDaries() returning 0\n";
-	    return 0;
-	}
-
+        
+        $Y = ( $year - 2000.0 ) / 1000.0;
+        
+        if ( $season == 1 ) {
+            ($y0, $y1, $y2, $y3, $y4) = 
+                (2451623.80984, 365242.37404, 0.05169, -0.00411, -0.00057);
+        } elsif ($season == 2) {
+            ($y0, $y1, $y2, $y3, $y4) = 
+                (2451716.56767, 365241.62603, 0.00325, 0.00888, -0.00030);
+        } elsif ($season == 3) {
+            ($y0, $y1, $y2, $y3, $y4) = 
+                (2451810.21715, 365242.01767, -0.11575, 0.00337, 0.00078);
+        } elsif ($season == 4) {
+            ($y0, $y1, $y2, $y3, $y4) = 
+                (2451900.05952, 365242.74049, -0.06223, -0.00823, 0.00032);
+        } else {
+            warn "Season: 1 (spring), 2 (summer), etc JDaries() returning 0\n";
+            return 0;
+        }
+        
     }
-
+    
     my $JDE0 = $y0 + $y1*$Y + $y2*$Y**2 + $y3*$Y**3 + $y4*$Y**4;
-
+    
     my $T = JCentury($JDE0);
-
+    
     my $W = 35999.373*$T - 2.47;   # degrees
     my $Dl = 1.0 + 0.0334*cos($PI*$W/180.0) + 0.0007*cos(2.0*$PI*$W/180.0);
-
+    
     my $S = 0;
     foreach my $ABC (@ABC) {
-	my ($A, $B, $C) = @$ABC;
-	my $arg = ($PI/180.0) * ($B + $C*$T);
-	$S += $A*cos($arg);
+        my ($A, $B, $C) = @$ABC;
+        my $arg = ($PI/180.0) * ($B + $C*$T);
+        $S += $A*cos($arg);
     }
-
+    
     my $JDE = $JDE0 + 0.00001*$S/$Dl;
-
+    
     return $JDE;
-
+    
 }
 
 
@@ -965,8 +965,8 @@ sub mean2ecc ($$) {
     }
 
     croak  "Error: mean2ecc() did not converge in $max_iter iterations\n" 
-	if ($i==$max_iter);
-
+        if ($i==$max_iter);
+    
     return $E;
 }
 
@@ -1116,45 +1116,45 @@ sub getDatesOfCoordsAtElong ($$$$) {
     # get approx JDs by assuming mean-motion for Earth with J2000 coords
     my $angle1fromJan1 = reduceAngle($lambda + $elong1 + 90.0);
     my $JD1 = $JD2000 + 
-	( $year - 2000.0 + ($angle1fromJan1)/360.0)*365.25;
+        ( $year - 2000.0 + ($angle1fromJan1)/360.0)*365.25;
     my $angle2fromJan1 = reduceAngle($lambda + $elong2 + 90.0);
     my $JD2 = $JD2000 + 
-	( $year - 2000.0 + ($angle2fromJan1)/360.0)*365.25;
+        ( $year - 2000.0 + ($angle2fromJan1)/360.0)*365.25;
     my @JD = ($JD1, $JD2);
-
+    
     # get the dates that these elongations occur on using Newton's method
     my $JDtolerance = 0.001;
     my ($i, $i_max) = (0, 100);
     my $dJD = 0.00001;
-
+    
     foreach my $j (0 .. 1) {
-
-	# assign the starting points
-	my $elong = $elong[$j];
-	my $JD = $JD[$j];
-	my $JDlast = $JD + 2.0*$JDtolerance;
-	my $e = $elong + 2.0*$JDtolerance;
-
-	while ( abs($JD - $JDlast) > $JDtolerance ) {
-		
-	    my $JDp = $JD + $dJD;
-	    my $e = getElongOfCoordsAtDate($alpha0, $delta0, $JD);
-	    my $ep = getElongOfCoordsAtDate($alpha0, $delta0, $JDp);
-	    my $de_dJD = ($ep - $e) / $dJD;	    
-	    my $delta_e = ($e - $elong);
-	    
-	    $JDlast = $JD;
-	    $JD -= $delta_e/$de_dJD;
-
-	    $i++;
-	    
-	    croak "Did not converge after $i iterations.  Exiting." 
-		if $i > $i_max;
-	    
-	}
-	$JD[$j] = $JD;
+        
+        # assign the starting points
+        my $elong = $elong[$j];
+        my $JD = $JD[$j];
+        my $JDlast = $JD + 2.0*$JDtolerance;
+        my $e = $elong + 2.0*$JDtolerance;
+        
+        while ( abs($JD - $JDlast) > $JDtolerance ) {
+            
+            my $JDp = $JD + $dJD;
+            my $e = getElongOfCoordsAtDate($alpha0, $delta0, $JD);
+            my $ep = getElongOfCoordsAtDate($alpha0, $delta0, $JDp);
+            my $de_dJD = ($ep - $e) / $dJD;	    
+            my $delta_e = ($e - $elong);
+            
+            $JDlast = $JD;
+            $JD -= $delta_e/$de_dJD;
+            
+            $i++;
+            
+            croak "Did not converge after $i iterations.  Exiting." 
+                if $i > $i_max;
+            
+        }
+        $JD[$j] = $JD;
     }
-
+    
     return (@JD) ? @JD : 0;
 }
 
@@ -1240,29 +1240,29 @@ sub mag2flux ($$) {
     #1 Jy = 1.51e7 photons sec^-1 m^-2 (dlambda/lambda)^-1
     
     my %filter_specs = (
-			U => [0.36, 0.15, 1810], 
-			B => [0.44, 0.22, 4260], 
-			V => [0.55, 0.16, 3640], 
-			R => [0.64, 0.23, 3080], 
-			I => [0.79, 0.19, 2550], 
-			J => [1.26, 0.16, 1600], 
-			H => [1.60, 0.23, 1080], 
-			K => [2.22, 0.23,  670], 
-			g => [0.52, 0.14, 3730], 
-			r => [0.67, 0.14, 4490], 
-			i => [0.79, 0.16, 4760], 
-			z => [0.91, 0.13, 4810]  
-			);
-
+        U => [0.36, 0.15, 1810], 
+        B => [0.44, 0.22, 4260], 
+        V => [0.55, 0.16, 3640], 
+        R => [0.64, 0.23, 3080], 
+        I => [0.79, 0.19, 2550], 
+        J => [1.26, 0.16, 1600], 
+        H => [1.60, 0.23, 1080], 
+        K => [2.22, 0.23,  670], 
+        g => [0.52, 0.14, 3730], 
+        r => [0.67, 0.14, 4490], 
+        i => [0.79, 0.16, 4760], 
+        z => [0.91, 0.13, 4810]  
+        );
+    
     croak "Filter $filter not in database.\n" unless $filter_specs{$filter};
-
+    
     # variable names  $mag_flux_Jy  '_Jy'   --> mag_flux is *in* Janskys
     #                 $photon_Flux_per_Jy   --> rate *per* Jansky
     my ($lambda, $dlambdaOverLambda, $mag0_flux_Jy) = 
-	@{$filter_specs{$filter}};
-
+        @{$filter_specs{$filter}};
+    
     my $mag_flux_Jy = $mag0_flux_Jy * 10**(-0.4*$mag);
-
+    
     my $photonFlux_per_Jy = 1.51e7 * ($dlambdaOverLambda);
 
     my $mag_flux_phot = $mag_flux_Jy * $photonFlux_per_Jy;
@@ -1340,15 +1340,15 @@ sub reflectedVmag($$$$$$) {
     
 
     croak "albedo $albedo not between  0 and 1.0\n" 
-	if ($albedo < 0 or $albedo > 1.0);
+        if ($albedo < 0 or $albedo > 1.0);
     croak "Slope param $G not between 0 and 1.0\n"
-	if ($G < 0 or $G > 1.0);
-
+        if ($G < 0 or $G > 1.0);
+    
     my $D = 2.0 * $rad / 1000.0;
     my ($A1, $A2, $B1, $B2) = (3.33, 1.87, 0.63, 1.22);
     my $phi1 = exp( -$A1 * (tan($phase/2.0))**$B1 );
     my $phi2 = exp( -$A2 * (tan($phase/2.0))**$B2 );
-
+    
     my $H0 = 5.0 * 3.129;
     my $Ha = $H0 - 2.5 * log10( (1.0-$G)*$phi1 + $G*$phi2 );
     

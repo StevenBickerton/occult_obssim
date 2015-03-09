@@ -48,9 +48,9 @@ sub CMDF($$$) {
     my ($r,$r0,$q) = @_;
     #return the cummulative mass
     if ($q < 4.0) {
-	return (4.0/3.0)*$PI*$rho*(($r0**4.0)/(4.0-$q))*($r/$r0)**(4.0-$q);
+        return (4.0/3.0)*$PI*$rho*(($r0**4.0)/(4.0-$q))*($r/$r0)**(4.0-$q);
     } else {
-	return -(4.0/3.0)*$PI*$rho*(($r0**4.0)/(4.0-$q))*($r/$r0)**(4.0-$q);
+        return -(4.0/3.0)*$PI*$rho*(($r0**4.0)/(4.0-$q))*($r/$r0)**(4.0-$q);
     }
 }
 
@@ -58,57 +58,57 @@ sub CMDF($$$) {
 sub IOCOdensity($) {
   
   
-  my ($q_small, $q_large, $r_break, $r_max, $mass, $width) =
-    (2.5, 4.5, 35, 2.5e3, 3.0, 35.0);
-  
-  my ($r_in) = @_;
-  $r_in /= 1000.0;
-
-  ### a cheap, approximate, area scaling
-  my $A = sqrt(2.0)*2.0*$PI*$ARCSECperRAD**2   * ($width/45.0);
-  
-  
-  ### Some constants....
-  my $mass_oort = $mass*$Me_SI; ## oort cloud is 3 times mass of earth
-  
-  ## compute the value of r0 based on the desired mass of the belt
-  ## ie.  Normallize this sucker, ie determine the r0 that, for the
-  ## anticpated total mass, results in 1 object per unit area
-  my $r0 = 1.0;
-  my $total_mass = $A * CMDF($r_min,$r0,$q_large);
-  $r0 =($mass_oort/$total_mass)**(1.0/$q_large);
-  
-  ### compute the density of objects per arcsecond2
-  my $n_uniform = CNDF($r_in,$r0,$q_large);
-  
-  
-  ### do the same thing, but now with a 'broken powerlaw'
-  ### first compute the normalization again.
-  ### we can't invert the problem this time, so look for a
-  ### convergent solution.
-  
-  my $mass_total = 0.0;
-  my $r_large = $r0;
-  my $r_small = 1.0;
-  while ( abs(($mass_total - $mass_oort)/$mass_oort) > 0.01 ) {
+    my ($q_small, $q_large, $r_break, $r_max, $mass, $width) =
+        (2.5, 4.5, 35, 2.5e3, 3.0, 35.0);
     
-    if ($mass_total > $mass_oort) {
-      $r_large = $r_large * 0.99;
-    } else {
-      $r_large = $r_large * 1.01;
-    }
+    my ($r_in) = @_;
+    $r_in /= 1000.0;
     
-    ### set r_small so the function is smooth at r_break
-    my $N_large = CNDF($r_break,$r_large,$q_large);
-    $r_small = 1.0;
-    my $N_small = CNDF($r_break,$r_small,$q_small);
-    $r_small = ($N_large/$N_small)**(1.0/$q_small);
-    $mass_total = $A * ( CMDF($r_min,$r_small,$q_small) - 
-			 CMDF($r_break,$r_small,$q_small) + 
-			 CMDF($r_break,$r_large,$q_large) );
+    ### a cheap, approximate, area scaling
+    my $A = sqrt(2.0)*2.0*$PI*$ARCSECperRAD**2   * ($width/45.0);
     
-  }                
-  my $n_bpl = CNDF($r_in,$r_small,$q_small);
-  return ($n_bpl, $n_uniform);
+    
+    ### Some constants....
+    my $mass_oort = $mass*$Me_SI; ## oort cloud is 3 times mass of earth
+    
+    ## compute the value of r0 based on the desired mass of the belt
+    ## ie.  Normallize this sucker, ie determine the r0 that, for the
+    ## anticpated total mass, results in 1 object per unit area
+    my $r0 = 1.0;
+    my $total_mass = $A * CMDF($r_min,$r0,$q_large);
+    $r0 =($mass_oort/$total_mass)**(1.0/$q_large);
+    
+    ### compute the density of objects per arcsecond2
+    my $n_uniform = CNDF($r_in,$r0,$q_large);
+    
+    
+    ### do the same thing, but now with a 'broken powerlaw'
+    ### first compute the normalization again.
+    ### we can't invert the problem this time, so look for a
+    ### convergent solution.
+    
+    my $mass_total = 0.0;
+    my $r_large = $r0;
+    my $r_small = 1.0;
+    while ( abs(($mass_total - $mass_oort)/$mass_oort) > 0.01 ) {
+        
+        if ($mass_total > $mass_oort) {
+            $r_large = $r_large * 0.99;
+        } else {
+            $r_large = $r_large * 1.01;
+        }
+        
+        ### set r_small so the function is smooth at r_break
+        my $N_large = CNDF($r_break,$r_large,$q_large);
+        $r_small = 1.0;
+        my $N_small = CNDF($r_break,$r_small,$q_small);
+        $r_small = ($N_large/$N_small)**(1.0/$q_small);
+        $mass_total = $A * ( CMDF($r_min,$r_small,$q_small) - 
+                             CMDF($r_break,$r_small,$q_small) + 
+                             CMDF($r_break,$r_large,$q_large) );
+        
+    }                
+    my $n_bpl = CNDF($r_in,$r_small,$q_small);
+    return ($n_bpl, $n_uniform);
 }
-  
+

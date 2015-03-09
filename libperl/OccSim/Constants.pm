@@ -16,30 +16,30 @@ use Carp;
 ###########     Constants        ##############
 
 my @mathConstants = qw($PI $TWOPI $PIHALF $EXP $sqrtTWOPI $sqrtPI 
-		       $RAD $DEG $ASperRAD);
+      $RAD $DEG $ASperRAD);
 
 my @physConstants = qw($G_SI $G_CGS $C_SI $C_CGS $EP_SI $MU_SI $h_SI 
-		       $h_CGS $hBAR_SI $hBAR_CGS $e_C $e_ESU
-		       $k_SI $k_CGS $k_EV $h_EV $hBAR_EV 
-		       $R_SI $R_CGS $ao_SI $ao_CGS $RH_SI $RH_CGS
-		       $sigma_SI $a_SI $a_CGS $NA_SI);
+       $h_CGS $hBAR_SI $hBAR_CGS $e_C $e_ESU
+       $k_SI $k_CGS $k_EV $h_EV $hBAR_EV 
+       $R_SI $R_CGS $ao_SI $ao_CGS $RH_SI $RH_CGS
+       $sigma_SI $a_SI $a_CGS $NA_SI);
 
 my @massConstants = qw($mp_KG $mp_G $mn_KG $mn_G $me_KG $me_G
-		       $mH_KG $mH_G $amu_KG $amu_G $amu_REL
-		       $mp_AMU $mn_AMU $me_AMU);
+       $mH_KG $mH_G $amu_KG $amu_G $amu_REL
+       $mp_AMU $mn_AMU $me_AMU);
 
 my @astroConstants = qw($Mo_CGS $Mo_G $Lo_CGS $Ro_CGS $Ro_CM $Ro_M $Teff_K 
-			$Me_CGS $Me_G $Re_CGS $Re_CM $Mo_KG $Mo_SI
-			$Me_SI $Me_KG $Re_M $Re_SI);
+       $Me_CGS $Me_G $Re_CGS $Re_CM $Mo_KG $Mo_SI
+       $Me_SI $Me_KG $Re_M $Re_SI);
 
 my @astroConversions = qw($LY_CM $PC_CM $PC_LY $AU_CM $SID_DAY $SOL_DAY
-			  $SID_YR $TROP_YR $Ho_SI $PC_M $CMperLY $PC_M 
-			  $MperPC $CMperPC $KMperPC $LYperPC $CMperAU 
-			  $KMperAU $MperAU $AUperPC $RAD_ARCSEC 
-			  $AU_M $AU_KM $MperAU $AU_CGS $ARCSECperRAD
-			  $SECperDAY $SECperWK $SECperMONTH $SECperYR 
-			  $SECperMYR $SECperGYR $HT_SEC $SECperHT
-			  $Mj_CGS $Mc_CGS $Mm_CGS $M1_CGS);
+       $SID_YR $TROP_YR $Ho_SI $PC_M $CMperLY $PC_M 
+       $MperPC $CMperPC $KMperPC $LYperPC $CMperAU 
+       $KMperAU $MperAU $AUperPC $RAD_ARCSEC 
+       $AU_M $AU_KM $MperAU $AU_CGS $ARCSECperRAD
+       $SECperDAY $SECperWK $SECperMONTH $SECperYR 
+       $SECperMYR $SECperGYR $HT_SEC $SECperHT
+       $Mj_CGS $Mc_CGS $Mm_CGS $M1_CGS);
 
 my @astroMisc       = qw( $JD2000 );
 

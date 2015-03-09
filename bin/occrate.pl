@@ -68,14 +68,14 @@ foreach my $pop ( keys %AU ) {
 
     my $sigma;
     if ($pop =~ /OCO/) {
-	$sigma = (IOCOdensity($rad))[0];
+        $sigma = (IOCOdensity($rad))[0];
     } elsif ($pop =~ /KBO/) {
-	$sigma = KBOdensity($rad, $rknee_kbo, $q_kbo, $q_doh_kbo);
+        $sigma = KBOdensity($rad, $rknee_kbo, $q_kbo, $q_doh_kbo);
     } elsif ($pop =~ /MBA/) {
-	$sigma = MBAdensity($rad, $Sigma_mba, $alpha_mba);
+        $sigma = MBAdensity($rad, $Sigma_mba, $alpha_mba);
     }
     $sigma *= 3600**2; # convert from arcsec^-2 to deg^-2
-
+    
     $mu{$pop} = 2.0*$b*$v*$sigma * (180.0/($PI*$AU*$AU_M))**2;
     
 }
