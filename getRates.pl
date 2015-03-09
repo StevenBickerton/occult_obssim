@@ -25,7 +25,7 @@ use Local::Stardata;
 my $exe = basename($0);
 my $usage = "Usage: $exe stardb dist Av AU aperture OCOpowerform prefix\n";
 
-my ($stardb, $dist, $Av, $AU0, $ap, $OCOpowerform, $prefix) = @ARGV;
+my ($stardb, $dist, $Av, $AU0, $ap, $OCOpowerform, $lam, $prefix) = @ARGV;
 die $usage unless $ap;
 my $AUstr = sprintf "%04d", $AU0;
 $OCOpowerform = 0 unless $OCOpowerform;
@@ -46,7 +46,6 @@ die "OCOpowerform must be 0 (broken) or 1 (uniform)\n"
 my ($elong, $incl) = (180.0, 0.0);
 my ($q, $q_doh, $rknee) = (4.6, 3.0, 25000.0);
 my $min_nonzero = 20; #min # of nadd!=0 in .stat file
-my ($lam) = 5.5e-7;
 my $fsu = sqrt($lam * $AU0 * $AU_M/2.0);
 
 # count the number of each star

@@ -42,7 +42,7 @@ foreach my $AU (@AUs) {
   my $cmd_runkomplete = "./runKomplete.pl $dist $AU $hz $QE $rdnoise $Av $Ebmv $ap";
   my $cmd_getRate     = "./getRate.pl starDB.dat $dist $AU $ap $IOCOpowerform $prefix";
   my $cmd_fitRmin     = "./fitRminBmax.pl starDB.dat $dist $AU $ap $IOCOpowerform $lammid $prefix";
-  my $cmd_getRates    = "./getRates.pl starDB.dat $dist $Av $AU $ap $IOCOpowerform $prefix";
+  my $cmd_getRates    = "./getRates.pl starDB.dat $dist $Av $AU $ap $IOCOpowerform $lammid $prefix";
 
   system($cmd_fresfile);
   system($cmd_runkomplete);
